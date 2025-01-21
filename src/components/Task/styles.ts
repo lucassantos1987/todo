@@ -9,12 +9,19 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10
     },
-    name: {
+    task: {
         flex: 1,
         fontSize: 16,
         color: '#FFF',
-        marginLeft: 16
+        marginLeft: 20,
     },
+    taskSelected: {
+      flex: 1,
+      fontSize: 16,
+      color: '#FFF',
+      marginLeft: 20,
+      textDecorationLine: 'line-through',   
+  },
     buttonText: {
         color: '#FFF',
         fontSize: 24  
@@ -28,5 +35,21 @@ export const styles = StyleSheet.create({
       },
       iconButton: {
         color: '#808080'
+      },
+      radioButton: {
+        borderWidth: 1,
+        borderColor: '#1E6F9F',
+        width: 24,
+        height: 24,
+        borderRadius: 20,
+        marginLeft: 20,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      radioButtonSelected: {
+        width: 16,
+        height: 16,
+        backgroundColor: '#1E6F9F',
+        borderRadius: 20,
       }
 })

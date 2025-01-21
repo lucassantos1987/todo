@@ -1,17 +1,41 @@
 
 import { useState } from "react";
-import { TextInput, TouchableOpacity, View, Text, Image, FlatList } from "react-native";
+import { TextInput, TouchableOpacity, View, Text, Image, FlatList, Alert } from "react-native";
 import { styles } from "./styles";
 import { Task } from "../../components/Task";
 
 export function Home() {
 
     const[tasks, setTasks] = useState<string[]>([]);
+    const[tasksDone, setTasksDone] = useState<string[]>([]);
     const[task, setTask] = useState('');
+    const[countCreated, setCountCreated] = useState(0);
+    const[countDone, setCountDone] = useState(0);
 
     function handleTaskAdd() {
-        setTasks(prevState => [...prevState, task]);
+        if (!task.trim()) {
+            return Alert.alert("Adicione uma tarefa!");
+        }
+
+        setTasks(prevState => [...prevState, task]);        
         setTask('');
+        setCountCreated(countCreated + 1);
+    }
+
+    function handleTaskRemove(name: string) {
+        Alert.alert("Remover", 'Deseja remover a tarefa?', [
+          {
+            text: 'Sim',
+            onPress: () => {
+                setTasks(prevState => prevState.filter(task => task !== name));
+                setCountCreated(countCreated - 1);
+            }
+          },
+          {
+            text: 'Não',
+            style: 'cancel'
+          }
+        ]);    
     }
 
     return (
@@ -23,7 +47,7 @@ export function Home() {
             <View style={styles.form}>
                 <TextInput 
                     style={styles.input}
-                    placeholder="Adicione uma nova tarefa..."
+                    placeholder="Adicione uma nova tarefa"
                     placeholderTextColor="#808080"
                     onChangeText={setTask}
                     value={task}
@@ -39,10 +63,10 @@ export function Home() {
 
             <View style={styles.status}>
                 <View>
-                    <Text style={styles.textCriadas}>Criadas</Text>
+                    <Text style={styles.textCriadas}>Criadas {countCreated}</Text>
                 </View>
                 <View>
-                    <Text style={styles.textConcluidas}>Concluidas</Text>
+                    <Text style={styles.textConcluidas}>Concluidas {countDone}</Text>
                 </View>
             </View>
 
@@ -52,10 +76,11 @@ export function Home() {
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
                     <Task 
-                    key={item}
-                    task={item} 
-                    />
+                        key={item}
+                        task={item}
+                        onRemove={() => handleTaskRemove(item)}/>
                 )}
+                
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={() => (
                     <View style={styles.listEmpty}>
