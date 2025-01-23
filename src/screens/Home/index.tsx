@@ -17,6 +17,11 @@ export function Home() {
             return Alert.alert("Adicione uma tarefa!");
         }
 
+        if (tasks.includes(task.trim())) {
+            return Alert.alert("Tarefa existe", "Já existe uma tarefa na lista com essa descrição.");
+          }
+      
+
         setTasks(prevState => [...prevState, task]);
         setTask('');
         setCountCreated(countCreated + 1);
