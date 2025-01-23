@@ -1,37 +1,25 @@
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { styles } from "./styles";
-import { useState } from "react";
+import { RadioButton } from "../RadioButton";
 
 type Props = {
     task: string;
+    selected: boolean;
     onRemove: () => void;
+    onSelect: () => void;
 }
 
-export function Task({ task, onRemove }: Props) {
-
-    const[checked, setChecked] = useState(false);
-
-    function handleCheckRadioButton() {
-        if (checked === false) {
-            setChecked(true);
-        } else {
-            setChecked(false);
-        }
-    }
+export function Task({ task, selected, onRemove, onSelect }: Props) {
 
     return (
         <View style={styles.container}>
 
-            <TouchableOpacity 
-                style={styles.radioButton}
-                onPress={handleCheckRadioButton}>
-                {
-                    checked === true && <View style={styles.radioButtonSelected}/>
-                }                
-            </TouchableOpacity>
+            <RadioButton 
+                selected={selected} 
+                onSelect={onSelect}/>
 
             {    
-                checked === false ? <Text style={styles.task}>{ task }</Text> : <Text style={styles.taskSelected}>{ task }</Text>
+                selected === false ? <Text style={styles.task}>{ task }</Text> : <Text style={styles.taskSelected}>{ task }</Text>
             }
 
             <TouchableOpacity 

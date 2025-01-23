@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     taskSelected: {
       flex: 1,
       fontSize: 16,
-      color: '#FFF',
+      color: '#808080',
       marginLeft: 20,
       textDecorationLine: 'line-through',   
   },

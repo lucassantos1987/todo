@@ -49,11 +49,11 @@ export const styles = StyleSheet.create({
         borderBlockColor: '#808080',
         paddingBottom: 20
     },
-    textCriadas: {
+    textCreated: {
         color: '#4EA8DE',
         fontWeight: 'bold',
     },
-    textConcluidas: {
+    textDone: {
         color: '#8284FA',
         fontWeight: 'bold'        
     },
@@ -75,6 +75,30 @@ export const styles = StyleSheet.create({
         color: '#808080',
         fontSize: 14,
         textAlign: 'center'
+    },
+    countCreated: {
+        backgroundColor: '#808080',
+        marginLeft: 10,
+        width: 30,
+        height: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    textCountCreated: {
+        color: '#FFF'
+    },
+    countDone: {
+        backgroundColor: '#808080',
+        marginLeft: 10,
+        width: 30,
+        height: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+
+    },
+    textCountDone: {
+        color: '#FFF'
     }
-  
 })

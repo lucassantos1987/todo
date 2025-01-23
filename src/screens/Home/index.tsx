@@ -17,7 +17,7 @@ export function Home() {
             return Alert.alert("Adicione uma tarefa!");
         }
 
-        setTasks(prevState => [...prevState, task]);        
+        setTasks(prevState => [...prevState, task]);
         setTask('');
         setCountCreated(countCreated + 1);
     }
@@ -29,6 +29,11 @@ export function Home() {
             onPress: () => {
                 setTasks(prevState => prevState.filter(task => task !== name));
                 setCountCreated(countCreated - 1);
+
+                if (tasksDone.includes(name)) {
+                    setTasksDone(prevState => prevState.filter(task => task !== name));
+                    setCountDone(countDone - 1);
+                }
             }
           },
           {
@@ -36,6 +41,16 @@ export function Home() {
             style: 'cancel'
           }
         ]);    
+    }
+
+    function handleTaskSelect(name: string) {
+        if (!tasksDone.includes(name)) {
+            setTasksDone(prevState => [...prevState, name]);
+            setCountDone(countDone + 1);
+        } else {
+            setTasksDone(prevState => prevState.filter(task => task !== name));
+            setCountDone(countDone - 1);
+        }
     }
 
     return (
@@ -62,11 +77,17 @@ export function Home() {
             </View>
 
             <View style={styles.status}>
-                <View>
-                    <Text style={styles.textCriadas}>Criadas {countCreated}</Text>
+                <View style={{ flexDirection: 'row'}}>
+                    <Text style={styles.textCreated}>Criadas</Text>
+                    <View style={styles.countCreated}>
+                        <Text style={styles.textCountCreated}>{countCreated}</Text>
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.textConcluidas}>Concluidas {countDone}</Text>
+                <View style={{ flexDirection: 'row'}}>
+                    <Text style={styles.textDone}>Concluidas</Text>
+                    <View style={styles.countDone}>
+                        <Text style={styles.textCountDone}>{countDone}</Text>
+                    </View>
                 </View>
             </View>
 
@@ -75,10 +96,12 @@ export function Home() {
                 data={tasks}
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
-                    <Task 
+                    <Task                    
                         key={item}
                         task={item}
-                        onRemove={() => handleTaskRemove(item)}/>
+                        selected={tasksDone.includes(item)}
+                        onRemove={() => handleTaskRemove(item)}
+                        onSelect={() => handleTaskSelect(item)}/>
                 )}
                 
                 showsVerticalScrollIndicator={false}
